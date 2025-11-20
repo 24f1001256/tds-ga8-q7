@@ -29,10 +29,11 @@ finance_count = (df[&quot;department&quot;] == &quot;Finance&quot;).sum()
 print(&quot;Finance count:&quot;, finance_count)
 
 plt.figure(figsize=(8,5))
-df[&quot;department&quot;].value_counts().plot(kind=&quot;bar&quot;)
-plt.title(&quot;Distribution of Employees Across Departments&quot;)
-plt.xlabel(&quot;Department&quot;)
-plt.ylabel(&quot;Count&quot;)
+df["department"].value_counts().plot(kind="bar")
+plt.title("Distribution of Employees Across Departments")
+plt.xlabel("Department")
+plt.ylabel("Count")
+plt.show()
 </code></pre>
 
 <h3>Generated Visualization:</h3>
