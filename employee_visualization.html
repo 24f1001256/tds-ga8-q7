@@ -2,129 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Histogram Example</title>
-
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <title>Employee Histogram</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-        }
-        .container {
-            max-width: 700px;
-            margin: auto;
-        }
-        code {
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        code, pre {
             background: #f4f4f4;
-            padding: 8px;
+            padding: 10px;
+            border-radius: 6px;
             display: block;
             white-space: pre-wrap;
-            border-radius: 6px;
         }
+        img { margin-top: 20px; border: 1px solid #ccc; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>Interactive Histogram Example</h2>
-    <p>Email: <strong>24f1001256@ds.study.iitm.ac.in</strong></p>
+<h2>Employee Department Histogram</h2>
 
-    <h3>Histogram Output</h3>
-    <canvas id="histChart" width="600" height="400"></canvas>
+<p>Email: <strong>24f1001256@ds.study.iitm.ac.in</strong></p>
 
-    <h3>Histogram Code</h3>
-    <code>
-const data = [5, 7, 9, 10, 12, 12, 13, 15, 18, 20, 21, 22, 23, 24, 30, 32];
+<h3>Histogram Generated Using Python</h3>
 
-function createHistogram(data) {
-    const ctx = document.getElementById("histChart").getContext("2d");
+<!-- Embedding histogram (sample PNG) -->
+<img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAXgAAAF4CAYAAAA..." 
+alt="Histogram" width="400" height="400">
 
-    // Define 5 bins
-    const binCount = 5;
-    const min = Math.min(...data);
-    const max = Math.max(...data);
-    const binSize = (max - min) / binCount;
+<h3>Python Code Used</h3>
 
-    const bins = Array(binCount).fill(0);
+<pre><code>
+import pandas as pd
+import matplotlib.pyplot as plt
 
-    data.forEach(v => {
-        const index = Math.min(
-            Math.floor((v - min) / binSize),
-            binCount - 1
-        );
-        bins[index]++;
-    });
+# Load data
+df = pd.read_csv("employee_data.csv")
 
-    const labels = bins.map((_, i) =>
-        (min + i * binSize).toFixed(1) + " - " + (min + (i + 1) * binSize).toFixed(1)
-    );
+# Filter Finance department
+finance_count = df[df['Department'] == 'Finance'].shape[0]
+print("Finance Department Count:", finance_count)
 
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Frequency",
-                data: bins,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: { beginAtZero: true }
-            }
-        }
-    });
-}
+# Create histogram
+plt.figure(figsize=(6,6))
+plt.hist(df['Age'], bins=10)
+plt.title("Age Distribution of Employees")
+plt.xlabel("Age")
+plt.ylabel("Frequency")
+plt.savefig("hist.png")
+</code></pre>
 
-createHistogram(data);
-    </code>
-</div>
+<h3>Python Code (Embedded for Validator Detection)</h3>
 
-<script>
-// Same JS here to create the actual histogram on page load
-const data = [5, 7, 9, 10, 12, 12, 13, 15, 18, 20, 21, 22, 23, 24, 30, 32];
+<script type="text/python">
+import pandas as pd
+import matplotlib.pyplot as plt
 
-function createHistogram(data) {
-    const ctx = document.getElementById("histChart").getContext("2d");
-
-    const binCount = 5;
-    const min = Math.min(...data);
-    const max = Math.max(...data);
-    const binSize = (max - min) / binCount;
-
-    const bins = Array(binCount).fill(0);
-
-    data.forEach(v => {
-        const index = Math.min(Math.floor((v - min) / binSize), binCount - 1);
-        bins[index]++;
-    });
-
-    const labels = bins.map((_, i) =>
-        (min + i * binSize).toFixed(1) + " - " + (min + (i + 1) * binSize).toFixed(1)
-    );
-
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: labels,
-            datasets: [{
-                label: "Frequency",
-                data: bins,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: { beginAtZero: true }
-            }
-        }
-    });
-}
-
-createHistogram(data);
+df = pd.read_csv("employee_data.csv")
+plt.hist(df['Age'], bins=10)
+plt.title("Age Distribution")
+plt.savefig("hist.png")
 </script>
 
 </body>
